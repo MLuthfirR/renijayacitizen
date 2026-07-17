@@ -1,0 +1,172 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+/* ==========================================================================
+   Sistem Desain — "Warga" untuk Duka Cita RT.02/RW.06
+   Terang, banyak putih, tenang & bermartabat.
+   ========================================================================== */
+@theme {
+    --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
+        sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+
+    /* Warna brand — teal tenang */
+    --color-brand-50: #ecfdf7;
+    --color-brand-100: #d1fae9;
+    --color-brand-200: #a7f3d6;
+    --color-brand-300: #6ee7bd;
+    --color-brand-400: #34d3a0;
+    --color-brand-500: #12b586;
+    --color-brand-600: #06926c;
+    --color-brand-700: #05755a;
+    --color-brand-800: #085d49;
+    --color-brand-900: #084c3d;
+    --color-brand-950: #022c24;
+
+    /* Netral hangat */
+    --color-ink: #0f1c1a;
+    --color-canvas: #f6f8f7;
+
+    --radius-xl: 1rem;
+    --radius-2xl: 1.25rem;
+
+    --shadow-soft: 0 1px 2px rgba(8, 41, 33, 0.04), 0 8px 24px -12px rgba(8, 41, 33, 0.12);
+    --shadow-lift: 0 2px 4px rgba(8, 41, 33, 0.05), 0 18px 40px -18px rgba(8, 41, 33, 0.22);
+}
+
+@layer base {
+    html {
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        scroll-behavior: smooth;
+    }
+
+    body {
+        background-color: var(--color-canvas);
+        color: var(--color-ink);
+        font-feature-settings: 'cv02', 'cv03', 'cv04', 'ss01';
+    }
+
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: #d5e0dc;
+        border-radius: 999px;
+        border: 3px solid transparent;
+        background-clip: content-box;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: #b6c7c1;
+        background-clip: content-box;
+    }
+
+    [x-cloak] {
+        display: none !important;
+    }
+}
+
+@layer components {
+    /* ---- Kartu ---- */
+    .card {
+        @apply rounded-2xl bg-white ring-1 ring-brand-950/5;
+        box-shadow: var(--shadow-soft);
+    }
+    .card-hover {
+        @apply transition duration-300;
+    }
+    .card-hover:hover {
+        box-shadow: var(--shadow-lift);
+        transform: translateY(-2px);
+    }
+
+    /* ---- Tombol ---- */
+    .btn, .btn-primary, .btn-ghost, .btn-soft, .btn-danger {
+        @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold
+            transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
+            focus-visible:ring-brand-500 disabled:opacity-50 disabled:pointer-events-none cursor-pointer;
+    }
+    .btn-primary {
+        @apply text-white;
+        background-image: linear-gradient(135deg, var(--color-brand-500), var(--color-brand-700));
+        box-shadow: 0 10px 20px -10px rgba(6, 146, 108, 0.7);
+    }
+    .btn-primary:hover {
+        background-image: linear-gradient(135deg, var(--color-brand-600), var(--color-brand-800));
+    }
+    .btn-ghost {
+        @apply bg-white text-brand-800 ring-1 ring-brand-950/10 hover:bg-brand-50;
+    }
+    .btn-soft {
+        @apply bg-brand-50 text-brand-800 hover:bg-brand-100;
+    }
+    .btn-danger {
+        @apply bg-rose-50 text-rose-700 ring-1 ring-rose-200 hover:bg-rose-100;
+    }
+    .btn-sm {
+        @apply px-3 py-1.5 text-xs rounded-lg;
+    }
+
+    /* ---- Field ---- */
+    .label {
+        @apply block text-sm font-medium text-brand-950/70 mb-1.5;
+    }
+    .input {
+        @apply w-full rounded-xl border-0 bg-white px-3.5 py-2.5 text-sm text-ink
+            ring-1 ring-brand-950/12 placeholder:text-brand-950/30
+            focus:ring-2 focus:ring-brand-500 focus:outline-none transition;
+    }
+    .input-error {
+        @apply ring-rose-300 focus:ring-rose-500;
+    }
+    .helptext {
+        @apply mt-1 text-xs text-brand-950/45;
+    }
+    .errortext {
+        @apply mt-1 text-xs font-medium text-rose-600;
+    }
+
+    /* ---- Badge ---- */
+    .badge, .badge-green, .badge-amber, .badge-rose, .badge-slate {
+        @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold;
+    }
+    .badge-green {
+        @apply bg-brand-50 text-brand-700 ring-1 ring-brand-200;
+    }
+    .badge-amber {
+        @apply bg-amber-50 text-amber-700 ring-1 ring-amber-200;
+    }
+    .badge-rose {
+        @apply bg-rose-50 text-rose-700 ring-1 ring-rose-200;
+    }
+    .badge-slate {
+        @apply bg-slate-100 text-slate-600 ring-1 ring-slate-200;
+    }
+
+    /* ---- Nav ---- */
+    .nav-link {
+        @apply flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium text-brand-950/65
+            transition duration-200 hover:bg-brand-50 hover:text-brand-800;
+    }
+    .nav-link-active {
+        @apply bg-white text-brand-800 ring-1 ring-brand-950/5 shadow-sm;
+    }
+}
+
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.animate-rise {
+    animation: rise 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
