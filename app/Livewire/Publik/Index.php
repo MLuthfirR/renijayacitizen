@@ -39,10 +39,21 @@ class Index extends Component
 
         if ($periode) {
             $builder = new LaporanBuilder($periode);
+
+            // Pengeluaran (santunan + lain) per bulan untuk grafik
+            $keluarPerBulan = array_fill(1, 12, 0);
+            foreach ($periode->santunan as $s) {
+                $keluarPerBulan[$s->bulan] += $s->nominal;
+            }
+            foreach ($periode->pengeluaranLain as $p) {
+                $keluarPerBulan[$p->bulan] += $p->nominal;
+            }
+
             $data += [
                 'ringkasan' => $builder->ringkasan(),
                 'santunan' => $periode->santunan()->orderBy('bulan')->orderBy('urutan')->get(),
                 'masukPerBulan' => $periode->masukPerBulan(),
+                'keluarPerBulan' => $keluarPerBulan,
             ];
         }
 
